@@ -9,7 +9,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://db-ohss6-kr.vpc-pub-cdb.ntruss.com:3306/study-together-db?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://db-pptd5-kr.vpc-pub-cdb.ntruss.com:3306/study-together?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
     username: application
     password: application123!
   sql:
@@ -25,6 +25,7 @@ spring:
         springframework:
           nodeValue: INFO
           web: DEBUG
+      org.hibernate: DEBUG
 
   mail:
     host: smtp.gmail.com
@@ -41,10 +42,8 @@ spring:
     hibernate:
       ddl-auto: none
     properties:
-      generate-ddl: true
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQL8Dialect
         show_sql: true
     database-platform: org.hibernate.dialect.MySQL8Dialect
 
@@ -58,47 +57,48 @@ spring:
     activate:
       on-profile: test
 
-    datasource:
-      driver-class-name: org.h2.Driver
-      username: sa
-      url: jdbc:h2:mem:STUDY_TOGETHER_TEST_DB
-      h2:
-        console:
-          enabled: 'true'
-    sql:
-      init:
-        mode: always
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/STUDY_TOGETHER?useSSL=false&serverTimezone=UTC
+    password: root
+  sql:
+    init:
+      mode: always
         # data-locations: classpath:schema.sql
 
-    thymeleaf:
-      prefix: classpath:/templates/
-      suffix: .html
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
 
-    logging:
-      level:
-        org:
-          springframework:
-            nodeValue: INFO
-            web: DEBUG
+  logging:
+    level:
+      org:
+        springframework:
+          nodeValue: INFO
+          web: DEBUG
+      org.hibernate: DEBUG
+            # type: TRACE  # Hibernate의 TRACE 레벨 로그 활성화
+            # orm.jdbc.bind: trace  # SQL 쿼리 로그를 위한 설정
+            # type.descriptor.sql.BasicBinder: TRACE  # 바인딩된 SQL 파라미터 로그를 위한 설정
 
-    mail:
-      host: smtp.gmail.com
-      port: 587
-      username: studytogether756@gmail.com
-      password: oqqd hqvo fgca owfn
-      properties:
-        mail.smtp.debug: true
-        mail.smtp.connectiontimeout: 1000
-        mail.starttls.enable: true
-        mail.smtp.auth: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: studytogether756@gmail.com
+    password: oqqd hqvo fgca owfn
+    properties:
+      mail.smtp.debug: true
+      mail.smtp.connection-timeout: 1000
+      mail.smtp.starttls.enable: true
+      mail.smtp.auth: true
 
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     properties:
-      generate-ddl: true
       hibernate:
         format_sql: true
         show_sql: true
-    database: h2
+    database-platform: org.hibernate.dialect.MySQL8Dialect
